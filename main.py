@@ -2,8 +2,11 @@ from requests import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import dotenv
+import os
 
-API_KEY = '076373d5-29da-42b5-9212-c0d7e0149312'
+
+API_KEY = os.getenv("API_KEY")
 
 start_time = time.time()
 
@@ -19,10 +22,6 @@ def to_dict(string):
     a[s_1_key] = s_1_value
     a[s_2_key] = s_2_value
     return a
-
-
-
-
 
 
 def get_data():
@@ -55,8 +54,6 @@ def get_data():
 
 
 
-
-
 s = get_data()
 print(s)
 
@@ -66,7 +63,7 @@ print(longitude, latitude)
 
 response_1 = get(f'https://geocode-maps.yandex.ru/1.x/?apikey={API_KEY}&geocode={longitude},{latitude}&kind=street&results=1&format=json')
 adress = response_1.json()["response"]["GeoObjectCollection"]["featureMember"][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text']
-print(adress)
+print(response_1.json())
 
 end_time = time.time()
 print(end_time-start_time)
